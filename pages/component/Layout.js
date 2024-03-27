@@ -6,11 +6,21 @@ import Navbar from "./Navbar";
 // import "../styles/globals.css";
 import AppContext from "../../context/appContext";
 import { useContext } from "react";
+import { Paginate } from "../../helpers/paginate";
 
 
 function Layout() {
 
     const value = useContext(AppContext)
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 3;
+
+    const onPageChange = (page) => {
+        setCurrentPage(page);
+    }
+
+    let paginatedUsers = Paginate(value.users, currentPage, pageSize);
 
     return (
         <>

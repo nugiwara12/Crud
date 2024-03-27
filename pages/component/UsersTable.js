@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Importing the required icons
 import User from "./User";
 import useSWR from "swr";
+import { Paginate } from "../../helpers/paginate";
 
 
 
@@ -41,7 +42,8 @@ function UsersTable() {
 
     return (
         <>
-        <Pagination />
+        {/* <Pagination userCount = {CSSMathValue.users.length} currentPage = {currentPage} pageSize = {pageSize} onPageChange = {onPageC} /> */}
+
         <main className="p-5 text-center">
             <div className="overflow-x-auto">
                 <table className="table-auto min-w-full bg-white shadow-md rounded-lg overflow-hidden">
@@ -59,32 +61,7 @@ function UsersTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* <User /> */}
-                    
-                    {
-                        data?.users.map((item, index) => (
-                            <tr key={item.id}>
-                            <input type="hidden" id="userId" name="id" value = "" />
-                                    <td>
-                                    <span class="custom-checkbox">
-                                            <input type="checkbox" id="data_checkbox" class="data_checkbox" name="data_checkbox" value="" />
-                                            <label htmlFor="data_checkbox"></label>
-                                    </span>
-                                </td>
-                            <td>{item.username}</td>
-                            <td>{item.email}</td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                            ))
-                    }
-                       
-
-                         
-                    
-                                        
+                    <User />          
                 </tbody>
                 </table>
             </div>

@@ -17,25 +17,25 @@ function User(){
     console.log(data)
     return (
         <>
-        {
-            data.map((user) => {
-                <tr key={user.id}>
-                        <input type="hidden" id="userId" name="id" value = "" />
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="data_checkbox" class="data_checkbox" name="data_checkbox" value="" />
-								<label htmlFor="data_checkbox"></label>
-							</span>
-						</td>
-						<td>{user.username}</td>
-						<td>{user.email}</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-            })
-        }
+         {
+                        data?.users.map((item, index) => (
+                            <tr key={item.id}>
+                            <input type="hidden" id="userId" name="id" value = "" />
+                                    <td>
+                                    <span class="custom-checkbox">
+                                            <input type="checkbox" id="data_checkbox" class="data_checkbox" name="data_checkbox" value="" />
+                                            <label htmlFor="data_checkbox"></label>
+                                    </span>
+                                </td>
+                            <td>{item.username}</td>
+                            <td>{item.email}</td>
+                            <td>
+                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                            ))
+                    }
         </>
     )
 }

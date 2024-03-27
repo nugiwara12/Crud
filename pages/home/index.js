@@ -4,25 +4,26 @@ import UsersTable from "../component/UsersTable";
 import Alert from "../component/Alert";
 import Layout from "../component/Layout";
 import useSWR from 'swr'; // Import useSWR
+import User from "../component/User";
+import { Paginate } from "../../helpers/paginate";
+import Pagination from "../component/Pagination";
 
 export default function Home() {
-    const { data: users, error } = useSWR('http://localhost:3000/api/users', fetcher); // Fetch data using useSWR
 
-    if (error) return <div>Error loading data...</div>;
-
+  const paginatedUsers = []
     return (
         <>
             <main className="min-h-screen flex flex-col">
                 <Navbar />
                 <Alert />
-                <div className="flex-grow">
-                    {users ? <UsersTable users={users} /> : <div>Loading...</div>} {/* Render the table if data is available, otherwise show loading indicator */}
-                </div>
+                  <div className="flex-grow">
+                    <UsersTable users = {paginatedUsers}/>
+                    <Pagination userCount = {CSSMathValue.users.length} currentPage = {currentPage} pageSize = {pageSize} onPageChange = {onPageChange} />
+                  </div>
                 <Layout />
             </main>
         </>
     );
 }
 
-// Fetcher function for useSWR
-const fetcher = (url) => fetch(url).then(res => res.json());
+
