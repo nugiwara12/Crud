@@ -1,16 +1,14 @@
 import Head from "next/head";
-import Image from "next/image";
 import Navbar from "../component/Navbar";
 import UsersTable from "../component/UsersTable";
-import Pagination from "../component/Pagination";
 import Alert from "../component/Alert";
-import { useState } from "react";
-import AppContext from "../../context/appCOntext"; // Fix typo in import
 import Layout from "../component/Layout";
+import useSWR from 'swr'; // Import useSWR
 
-export default function Home({ users }) {
+export default function Home() {
+    const { data: users, error } = useSWR('http://localhost:3000/api/users', fetcher); // Fetch data using useSWR
 
-    const [myUsers, setMyUsers] = useState(users); // Fixed useState syntax
+    if (error) return <div>Error loading data...</div>;
 
     return (
         <>
@@ -18,31 +16,13 @@ export default function Home({ users }) {
                 <Navbar />
                 <Alert />
                 <div className="flex-grow">
-                  {/* Use myUsers instead of value.users */}
-                    <UsersTable users={myUsers} /> 
+                    {users ? <UsersTable users={users} /> : <div>Loading...</div>} {/* Render the table if data is available, otherwise show loading indicator */}
                 </div>
-                <AppContext.Provider value={{
-                    users: myUsers,
-                    setMyUsers: setMyUsers
-                }} >
-                    <Layout />
-                </AppContext.Provider>
+                <Layout />
             </main>
         </>
     );
 }
 
-export async function getServerSideProps() {
-    // Fetch data from the API endpoint
-    const response = await fetch("http://localhost:3000/api/users");
-
-    // Await response.json() to get the actual JSON data
-    const users = await response.json();
-
-    // Return the data as props
-    return {
-        props: {
-            users: users
-        }
-    };
-}
+// Fetcher function for useSWR
+const fetcher = (url) => fetch(url).then(res => res.json());

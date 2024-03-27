@@ -1,23 +1,41 @@
+import useSWR from "swr";
+
+
 function User(){
+
+    const fetcher = async () => {
+        const response = await fetch('http://localhost:3000/api/users')
+        const data = await response.json()
+        return data
+    }
+    
+
+    const {data, error} = useSWR('user', fetcher)
+
+    if(error) return 'An error has accured'
+    if(!data) return 'loading'
+    console.log(data)
     return (
         <>
-            <input type="hidden" id="userId" name="id" value="" />
-            <span className="flex items-center">
-                <input type="checkbox" id="data_checkbox" className="form-checkbox data_checkbox" name="data_checkbox" value="" />
-                <label htmlFor="data_checkbox" className="ml-2"></label>
-            </span>
-            <span className="ml-2">Anand Raj Rajanand@gmail.com</span>
-            <a href="#editEmployeeModal" className="edit ml-2" data-toggle="modal">
-                <i className="material-icons" data-toggle="tooltip" title="Edit">
-                    
-                </i>
-            </a>
-            <a href="#deleteEmployeeModal" className="delete ml-2" data-toggle="modal">
-                <i className="material-icons" data-toggle="tooltip" title="Delete">
-                    
-                </i>
-            </a>
-
+        {
+            data.map((user) => {
+                <tr key={user.id}>
+                        <input type="hidden" id="userId" name="id" value = "" />
+						<td>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="data_checkbox" class="data_checkbox" name="data_checkbox" value="" />
+								<label htmlFor="data_checkbox"></label>
+							</span>
+						</td>
+						<td>{user.username}</td>
+						<td>{user.email}</td>
+						<td>
+							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+						</td>
+					</tr>
+            })
+        }
         </>
     )
 }

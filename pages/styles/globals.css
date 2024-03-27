@@ -4,3 +4,13 @@
 
 
 
+/* Animated table rows */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .animated-row {
+    animation: fadeIn 0.5s ease;
+  }
+  

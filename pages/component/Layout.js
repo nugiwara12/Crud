@@ -4,7 +4,7 @@ import UsersTable from "./UsersTable";
 import Pagination from "./Pagination";
 import Navbar from "./Navbar";
 // import "../styles/globals.css";
-import AppContext from "../../context/appCOntext";
+import AppContext from "../../context/appContext";
 import { useContext } from "react";
 
 
