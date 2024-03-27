@@ -3,10 +3,15 @@ import UsersTable from "./UsersTable";
 // import User from "./User";
 import Pagination from "./Pagination";
 import Navbar from "./Navbar";
-import "../styles/globals.css";
+// import "../styles/globals.css";
+import AppContext from "../../context/appCOntext";
+import { useContext } from "react";
 
 
 function Layout() {
+
+    const value = useContext(AppContext)
+
     return (
         <>
             <div id="addEmployeeModal" className="modal fade">

@@ -4,32 +4,45 @@ import Navbar from "../component/Navbar";
 import UsersTable from "../component/UsersTable";
 import Pagination from "../component/Pagination";
 import Alert from "../component/Alert";
+import { useState } from "react";
+import AppContext from "../../context/appCOntext"; // Fix typo in import
+import Layout from "../component/Layout";
 
+export default function Home({ users }) {
 
-export default function Home() {
-  return (
-    <>
+    const [myUsers, setMyUsers] = useState(users); // Fixed useState syntax
 
+    return (
+        <>
+            <main className="min-h-screen flex flex-col">
+                <Navbar />
+                <Alert />
+                <div className="flex-grow">
+                  {/* Use myUsers instead of value.users */}
+                    <UsersTable users={myUsers} /> 
+                </div>
+                <AppContext.Provider value={{
+                    users: myUsers,
+                    setMyUsers: setMyUsers
+                }} >
+                    <Layout />
+                </AppContext.Provider>
+            </main>
+        </>
+    );
+}
 
-    <main className="min-h-screen flex flex-col">
+export async function getServerSideProps() {
+    // Fetch data from the API endpoint
+    const response = await fetch("http://localhost:3000/api/users");
 
-            {/* <Head>
-                <title>NextJS MySQL CRUD tutorial</title>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-                <meta name="Description" content="NextJS MySQL CRUD tutorial" />
-                <meta name="author" content="anand346@BePractical" />
-                <meta name="og:url" content="https://www.linkedin.com/in/anand346" />
-            </Head> */}
+    // Await response.json() to get the actual JSON data
+    const users = await response.json();
 
-            <Navbar />
-            <Alert />
-            <div className="flex-grow">
-                <UsersTable />
-            </div>
-        </main>
-
-    </>
-  );
+    // Return the data as props
+    return {
+        props: {
+            users: users
+        }
+    };
 }
