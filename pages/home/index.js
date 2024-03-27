@@ -1,14 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
-import Navbar from "./component/Navbar";
-import UsersTable from "./component/UsersTable";
-import Pagination from "./component/Pagination";
+import Navbar from "../component/Navbar";
+import UsersTable from "../component/UsersTable";
+import Pagination from "../component/Pagination";
+import Alert from "../component/Alert";
 
 
 export default function Home() {
   return (
     <>
+
+
     <main className="min-h-screen flex flex-col">
+
             {/* <Head>
                 <title>NextJS MySQL CRUD tutorial</title>
                 <meta charSet="UTF-8" />
@@ -20,11 +24,12 @@ export default function Home() {
             </Head> */}
 
             <Navbar />
-
+            <Alert />
             <div className="flex-grow">
                 <UsersTable />
             </div>
         </main>
+
     </>
   );
 }

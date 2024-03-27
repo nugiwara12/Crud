@@ -1,0 +1,50 @@
+"use client"
+
+
+import { MdDelete } from "react-icons/md";
+import { IoIosAddCircle } from "react-icons/io";
+import { Fragment, useState } from "react";
+import Modal from "./Modal";
+
+
+
+
+function Navbar() {
+
+  const [showModal, setShowModal,] = useState(false);
+
+  return (
+    <>
+    <main>
+    <Fragment>
+        <div className="bg-gray-800">
+            <div className="container mx-auto px-4">
+                <div className="flex justify-between items-center py-4">
+                    <div className="flex-1">
+                        <h2 className="text-xl font-bold text-white">NextJS-MySQL <span className="font-normal">CRUD</span></h2>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                        <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded inline-flex items-center ml-4" onClick={() => setShowModal(true)}>
+                            <IoIosAddCircle /> 
+                            Add Users
+                        </button>
+                        <a href="#" className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded inline-flex items-center">
+                            <i className="material-icons"><MdDelete /></i>
+                            <span>Delete</span>
+                        </a>
+                        <input type="text" className="form-input w-56 h-10" name="search_user" placeholder="Search a username..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <Modal isVisible={showModal} onClose={() => setShowModal(false)}/>
+    </Fragment>
+    </main>
+    
+           
+
+    </>
+  )
+}
+export default Navbar;
