@@ -1,42 +1,41 @@
-import React, { useState } from 'react'; // Import useState
+import Head from "next/head";
 import Navbar from "../component/Navbar";
 import UsersTable from "../component/UsersTable";
 import Alert from "../component/Alert";
 import Layout from "../component/Layout";
-import Pagination from "../component/Pagination"; // Import Pagination
-import { Paginate } from "../../helpers/paginate"; // Import Paginate
+import useSWR from 'swr'; // Import useSWR
+import User from "../component/User";
+import AppContext from "../../context/appContext";
+import { Paginate } from "../../helpers/paginate";
+import Pagination from "../component/Pagination";
+import React, { useState } from 'react'; // Import React and useState
 
-export default function Home({ value }) {
-  const [state, setState] = useState({
-    films: [],
-    page: 1,
-    genres: [],
-    currentCategory: ""
-  });
 
-  const { page: currentPage } = state; // Extract currentPage from state
-  const pageSize = 3;
+export default function Home({value}) {
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10; // Set pageSize to your desired value
+
+  // Define onPageChange function
   const onPageChange = (page) => {
-    setState(prevState => ({ ...prevState, page }));
+    setCurrentPage(page);
+    // Add logic here to handle page change, if needed
   };
 
-  // Ensure that value is defined before using it
-  let paginatedUsers = value ? Paginate(value.users, currentPage, pageSize) : [];
-  
-
-  return (
-    <>
-      <main className="min-h-screen flex flex-col">
-        <Navbar />
-        <Alert />
-        <div className="flex-grow">
-          <UsersTable users={paginatedUsers} />
-          {/* Ensure that currentPage is defined before accessing its value */}
-          <Pagination userCount={value ? value.users.length : 0} currentPage={currentPage} pageSize={pageSize} onPageChange={onPageChange} />
-        </div>
-        <Layout />
-      </main>
-    </>
-  );
+  const paginatedUsers = []
+    return (
+        <>
+            <main className="min-h-screen flex flex-col">
+                <Navbar />
+                <Alert />
+                  <div className="flex-grow">
+                    <UsersTable users = {paginatedUsers}/>
+                    <Pagination usersCount = {value?.users.length} currentPage = {currentPage} pageSize = {pageSize} onPageChange = {onPageChange} />
+                  </div>
+                <Layout />
+            </main>
+        </>
+    );
 }
+
+
