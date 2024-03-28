@@ -30,8 +30,16 @@ function User(){
                             <td>{item.username}</td>
                             <td>{item.email}</td>
                             <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <div class="flex items-center">
+                                    <a href="#editEmployeeModal" class="edit flex items-center justify-center rounded-full bg-blue-500 text-white w-10 h-10 mr-2" data-toggle="modal">
+                                        <i class="material-icons" data-toggle="tooltip" title="Edit">edit</i>
+                                    </a>
+                                    <a href="#deleteEmployeeModal" class="delete flex items-center justify-center rounded-full bg-red-500 text-white w-10 h-10" data-toggle="modal">
+                                        <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i>
+                                    </a>
+                                </div>
+
+
                             </td>
                         </tr>
                             ))
