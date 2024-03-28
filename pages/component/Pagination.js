@@ -1,16 +1,18 @@
-function Pagination({ usersCount, currentPage, pageSize, onPageChange }) {
-	const totalPages = Math.ceil(usersCount / pageSize);
+import React from 'react';
+
+function Pagination({ userCount, currentPage, pageSize, onPageChange }) {
+	const totalPages = Math.ceil(userCount / pageSize);
 
 	if (totalPages <= 1) return null;
 
-	const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+	const pages = Array.from({ length: totalPages }, (_, i) => i+1);
 
 	return (
 		<div className="d-flex justify-content-end align-items-center">
 			<ul className="pagination">
 				{pages.map(page => (
 					<li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
-						<a href="#" className="page-link" onClick={() => onPageChange(page)}>{page}</a>
+						<button className="page-link" onClick={() => onPageChange(page)}>{page}</button>
 					</li>
 				))}
 			</ul>

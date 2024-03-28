@@ -1,4 +1,5 @@
 import Alert from "./Alert";
+import { useState } from 'react';
 import UsersTable from "./UsersTable";
 // import User from "./User";
 import Pagination from "./Pagination";
@@ -9,18 +10,22 @@ import { useContext } from "react";
 import { Paginate } from "../../helpers/paginate";
 
 
-function Layout() {
+function Layout({ value }) {
 
-    const value = useContext(AppContext)
+    // const value = useContext(AppContext)
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 3;
-
+    const currentPage = 1; // Define currentPage if needed
+    const pageSize = 10; // Define pageSize if needed
+   
+  
+    // Define onPageChange if needed
     const onPageChange = (page) => {
-        setCurrentPage(page);
-    }
+        etCurrentPage(page);
+    };
+  
+    // Check if value and value.users are defined before using Paginate
+    let paginatedUsers = value && value.users ? Paginate(value.users, currentPage, pageSize) : [];
 
-    let paginatedUsers = Paginate(value.users, currentPage, pageSize);
 
     return (
         <>

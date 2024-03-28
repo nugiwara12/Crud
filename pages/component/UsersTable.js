@@ -15,7 +15,7 @@ const fetcher = async () => {
     return data
 }
 
-function UsersTable() {
+function UsersTable({ value }) {
 
     // const {data, error} = useSWR('user', fetcher)
 
@@ -38,11 +38,24 @@ function UsersTable() {
         )
     }
 
+    const currentPage = 1; // Define currentPage if needed
+    const pageSize = 10; // Define pageSize if needed
+
+    // Define onPageChange if needed
+    const onPageChange = (page) => {
+        etCurrentPage(page);
+    };
+
     
 
     return (
         <>
-        {/* <Pagination userCount = {CSSMathValue.users.length} currentPage = {currentPage} pageSize = {pageSize} onPageChange = {onPageC} /> */}
+        <Pagination
+        userCount={value ? value.users.length : 0}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onPageChange={onPageChange}
+      />
 
         <main className="p-5 text-center">
             <div className="overflow-x-auto">
