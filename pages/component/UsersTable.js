@@ -67,7 +67,7 @@ function UsersTable({ value }) {
                                 </th>
                                 <th className="px-4 py-2">Name</th>
                                 <th className="px-4 py-2">Email</th>
-                                <th className="px-4 py-2">Actions</th>
+                                <th className="flex items-center justify-center text-white w-10 h-10">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
