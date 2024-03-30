@@ -15,6 +15,8 @@ function Home() {
 
     const value = useContext(AppContext)
 
+    const [alertMessage , setAlertMessage] = useState("");
+
     const [saveUser , setSaveUser] = useState({
         username : "",
         email : ""
@@ -38,6 +40,7 @@ function Home() {
         paginatedUsers = value && value.users ? Paginate(value.users, currentPage, pageSize) : [];
     }
 
+    
     const handleDelete = async (userId) => {
         // Confirm deletion with the user
         const confirmDelete = window.confirm("Are you sure you want to delete this item?");
@@ -48,6 +51,7 @@ function Home() {
             };
         
             try {
+                setAlertMessage("User Deleted Successfully");
                 // Delete the user
                 const response = await fetch(`http://localhost:3000/api/users/${userId}`, reqOption);
                 
@@ -67,7 +71,7 @@ function Home() {
     return (
         <>
         <Navbar searchQuery = {searchQuery} setSearchQuery={setSearchQuery} />
-        <Alert />
+        <Alert text = {alertMessage} setAlertMessage = {setAlertMessage} style={alertMessage.length > 0 ? 'block' : 'none'} />
         <div className="flex-grow">
           <UsersTable users = {paginatedUsers} handleDelete = {handleDelete} />
           <Pagination usersCount = {searchQuery.length > 0 ? searchedResult.length : value?.users.length} currentPage = {currentPage} pageSize = {pageSize} onPageChange = {onPageChange} />

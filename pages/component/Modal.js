@@ -23,12 +23,12 @@ const Modal = ({ isVisible, onClose }) => {
     };
 
     const handleAddSubmit = async (e) => {
+        e.preventDefault(); // Prevent the default form submission behavior
+        
         // Confirm addition with the user
         const confirmAdd = window.confirm("Are you sure you want to add this item?");
     
         if (confirmAdd) {
-            e.preventDefault();
-    
             const reqOption = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -46,28 +46,33 @@ const Modal = ({ isVisible, onClose }) => {
     
                 if (result) {
                     onClose();
+                    // Display a success alert message
+                    window.alert("User added successfully!");
                     // Refresh the page after adding the item
                     window.location.reload();
                 }
             } catch (error) {
                 console.error("Error adding user:", error);
+                // Display an error alert message
+                window.alert("Error adding user. Please try again.");
             }
         }
     }
+    
 
-    const handleDelete = async (userId) => {
-        var reqOption = {
-            method: "DELETE"
-        }
-        var response = await fetch("http://localhost:3000/api/users/"+userId.reqOption);
-        var result = await response.json();
+    // const handleDelete = async (userId) => {
+    //     var reqOption = {
+    //         method: "DELETE"
+    //     }
+    //     var response = await fetch("http://localhost:3000/api/users/"+userId.reqOption);
+    //     var result = await response.json();
 
-        if (result) {
-            var prevUsers = value.users;
-            var newUsers = prevUsers.filter(user => user.id !== result.userId);
-            value.setMyUsers(newUsers);
-        }        
-    }
+    //     if (result) {
+    //         var prevUsers = value.users;
+    //         var newUsers = prevUsers.filter(user => user.id !== result.userId);
+    //         value.setMyUsers(newUsers);
+    //     }        
+    // }
 
     const [myUsers, setMyUsers] = useState([]);
     
@@ -92,7 +97,7 @@ const Modal = ({ isVisible, onClose }) => {
                                 <input value={saveUser.email} onChange={handleSaveChange} type="email" id="email" name="email" className="w-full px-3 py-2 border border-gray-500 rounded-md" />
                             </div>
                             <div className="flex">
-                                <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 mr-3">Add</button>
+                                <button type="submit" onClick={handleAddSubmit} className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 mr-3">Add</button>
                                 <button type="button" className="bg-red-800 text-white py-2 px-4 rounded-md hover:bg-red-900" onClick={onClose}>Cancel</button>
                             </div>
                         </form>
