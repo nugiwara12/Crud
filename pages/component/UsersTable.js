@@ -14,7 +14,7 @@ const fetcher = async () => {
     return data
 }
 
-function UsersTable({ users, handleDelete }) {
+function UsersTable({ users, handleDelete, setEditUser }) {
 
     // Ensure that data is always fetched
     const { data } = useSWR(
@@ -41,7 +41,7 @@ function UsersTable({ users, handleDelete }) {
         const userGenerator = () => {
             return (
                 <>
-                    <User handleDelete = {handleDelete} />
+                    <User setEditUser = {setEditUser} handleDelete = {handleDelete} />
                 </>
             )
         }
@@ -72,7 +72,7 @@ function UsersTable({ users, handleDelete }) {
                             </tr>
                         </thead>
                         <tbody>
-                            <User handleDelete={handleDelete}/>
+                            <User setEditUser = {setEditUser} handleDelete={handleDelete}/>
                         </tbody>
                     </table>
                 </div>

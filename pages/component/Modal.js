@@ -60,20 +60,6 @@ const Modal = ({ isVisible, onClose }) => {
     }
     
 
-    // const handleDelete = async (userId) => {
-    //     var reqOption = {
-    //         method: "DELETE"
-    //     }
-    //     var response = await fetch("http://localhost:3000/api/users/"+userId.reqOption);
-    //     var result = await response.json();
-
-    //     if (result) {
-    //         var prevUsers = value.users;
-    //         var newUsers = prevUsers.filter(user => user.id !== result.userId);
-    //         value.setMyUsers(newUsers);
-    //     }        
-    // }
-
     const [myUsers, setMyUsers] = useState([]);
     
 
@@ -105,6 +91,9 @@ const Modal = ({ isVisible, onClose }) => {
                 </div>
             </div>
         </div>
+
+
+
     );
 }
 

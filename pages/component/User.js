@@ -1,8 +1,9 @@
 import useSWR from "swr";
+import Layout from "./Layout";
 
-function User({ handleDelete }) {
+function User({user, handleDelete, setEditUser }) {
     const fetcher = async () => {
-        const response = await fetch('http://localhost:3000/api/users')
+        const response = await fetch('http://localhost:3000/api/users/')
         const data = await response.json()
         return data
     }
@@ -12,6 +13,15 @@ function User({ handleDelete }) {
     if (error) return 'An error has occurred'
     if (!data) return 'Loading'
 
+    const fetchUser = async (userId) => {
+
+        const response = await fetch("http://localhost:3000/api/users/"+userId);
+        const result = await response.json();
+
+        setEditUser(result);
+    }
+    
+    
     return (
         <>
             {data?.users.map((item, index) => (
@@ -27,9 +37,10 @@ function User({ handleDelete }) {
                     <td>{item.email}</td>
                     <td>
                         <div className="flex items-center">
-                            <a href="#editEmployeeModal" className="edit flex items-center justify-center rounded-full bg-blue-500 text-white w-10 h-10 mr-2" data-toggle="modal">
+                            <a href="#editEmployeeModal" onClick={() => fetchUser(item.id)} className="edit flex items-center justify-center rounded-full bg-blue-500 text-white w-10 h-10 mr-2" data-toggle="modal">
                                 <i className="material-icons" data-toggle="tooltip" title="Edit">edit</i>
                             </a>
+
                             <a href="#deleteEmployeeModal" onClick={() => handleDelete(item.id)} className="delete flex items-center justify-center rounded-full bg-red-500 text-white w-10 h-10" data-toggle="modal">
                                 <i className="material-icons" data-toggle="tooltip" title="Delete">delete</i>
                             </a>
