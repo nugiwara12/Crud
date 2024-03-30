@@ -14,7 +14,7 @@ const fetcher = async () => {
     return data
 }
 
-function UsersTable({ value }) {
+function UsersTable({ users, handleDelete }) {
 
     // Ensure that data is always fetched
     const { data } = useSWR(
@@ -41,7 +41,7 @@ function UsersTable({ value }) {
         const userGenerator = () => {
             return (
                 <>
-                    <User />
+                    <User handleDelete = {handleDelete} />
                 </>
             )
         }
@@ -50,10 +50,10 @@ function UsersTable({ value }) {
     return (
         <>
             <Pagination
-                usersCount={value?.users?.length || 0}
-                currentPage={currentPage}
-                pageSize={pageSize}
-                onPageChange={onPageChange}
+                // usersCount={value?.users?.length || 0}
+                // currentPage={currentPage}
+                // pageSize={pageSize}
+                // onPageChange={onPageChange}
             />
             <main className="p-5 text-center">
                 <div className="overflow-x-auto">
@@ -72,7 +72,7 @@ function UsersTable({ value }) {
                             </tr>
                         </thead>
                         <tbody>
-                            <User />
+                            <User handleDelete={handleDelete}/>
                         </tbody>
                     </table>
                 </div>

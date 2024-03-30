@@ -23,24 +23,54 @@ const Modal = ({ isVisible, onClose }) => {
     };
 
     const handleAddSubmit = async (e) => {
-        e.preventDefault();
-
-        const reqOption = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(saveUser)
-        }
-
-        const response = await fetch("http://localhost:3000/api/users/", reqOption);
-        const result = await response.json();
-
-        if (result) {
-            onClose();
-            setMyUsers(prevUsers => [...prevUsers, result]);
+        // Confirm addition with the user
+        const confirmAdd = window.confirm("Are you sure you want to add this item?");
+    
+        if (confirmAdd) {
+            e.preventDefault();
+    
+            const reqOption = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(saveUser)
+            }
+    
+            try {
+                const response = await fetch("http://localhost:3000/api/users/", reqOption);
+                const result = await response.json();
+                
+                setSaveUser({
+                    username : "",
+                    email : ""
+                })
+    
+                if (result) {
+                    onClose();
+                    // Refresh the page after adding the item
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error("Error adding user:", error);
+            }
         }
     }
 
+    const handleDelete = async (userId) => {
+        var reqOption = {
+            method: "DELETE"
+        }
+        var response = await fetch("http://localhost:3000/api/users/"+userId.reqOption);
+        var result = await response.json();
+
+        if (result) {
+            var prevUsers = value.users;
+            var newUsers = prevUsers.filter(user => user.id !== result.userId);
+            value.setMyUsers(newUsers);
+        }        
+    }
+
     const [myUsers, setMyUsers] = useState([]);
+    
 
 
     return (
