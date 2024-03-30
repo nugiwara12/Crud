@@ -6,6 +6,7 @@ import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Importing the required i
 import User from "./User";
 import useSWR from "swr";
 import { Paginate } from "../../helpers/paginate";
+import { Search } from "../../helpers/search";
 
 const fetcher = async () => {
     const response = await fetch('/api/users')

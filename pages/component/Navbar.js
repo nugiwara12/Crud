@@ -5,13 +5,14 @@ import { MdDelete } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 import { Fragment, useState } from "react";
 import Modal from "./Modal";
+import { Search } from "../../helpers/search";
 
 
 
-
-function Navbar() {
+function Navbar({searchQuery , setSearchQuery}) {
 
   const [showModal, setShowModal,] = useState(false);
+
 
   return (
     <>
@@ -32,7 +33,7 @@ function Navbar() {
                         <i className="material-icons"><MdDelete /></i>
                         <span className="hidden md:inline-block">Delete</span>
                         </a>
-                        <input type="text" className="form-input w-full md:w-56 h-10" name="search_user" placeholder="Search a username..." />
+                        <input value = {searchQuery} onChange={(e) => setSearchQuery(e.target.value)} type="text" className="form-input w-full md:w-56 h-10" name="search_user" placeholder="Search a username..." />
                     </div>
                     </div>
                 </div>
