@@ -15,6 +15,11 @@ function Home() {
 
     const value = useContext(AppContext)
 
+    const [saveUser , setSaveUser] = useState({
+        username : "",
+        email : ""
+    })
+
     const[searchQuery, setSearchQuery] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
