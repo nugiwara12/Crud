@@ -1,3 +1,4 @@
+// import { useEffect,useState,useContext } from "react";
 import Alert from "./Alert";
 import UsersTable from "./UsersTable";
 // import User from "./User";
@@ -23,38 +24,49 @@ function Layout() {
 
     let paginatedUsers = value?.users ? Paginate(value.users, currentPage, pageSize) : [];
 
+    const [editUser , setEditUser] = useState({
+        id : "",
+        email : "",
+        username : ""
+    })
 
-    const handleEditSubmit = async (e) => {
-        e.preventDefault();
-    
-        const reqOptions = {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(editUser)
-        };
-    
+    const handleEditChange = ({target : {name, value}}) => {
+        setEditUser({...editUser, [name] : value});
+    }
+
+    const handleEditSubmit = async (updatedUser) => {
         try {
-            const response = await fetch("http://localhost:3000/api/users/" + editUser.id, reqOptions);
-            const result = await response.json();
+            const reqOption = {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedUser)
+            };
     
-            if (result) {
-                setAlertMessage("User Edited Successfully");
-                document.getElementsByClassName("editCancel")[0].click();
+            // Send the PUT request to update the user data
+            const response = await fetch(`http://localhost:3000/api/users/${updatedUser.id}`, reqOption);
     
-                // Update the state with the edited user
-                const updatedUsers = data.users.map(user => {
-                    if (user.id === editUser.id) {
-                        return result; // Update the edited user
-                    }
-                    return user; // Return unchanged user
-                });
-                setData({ ...data, users: updatedUsers }); // Update the users data in state
+            if (!response.ok) {
+                throw new Error("Failed to update user");
             }
+    
+            // Set alert message for successful update
+            setAlertMessage("User Updated Successfully");
+    
+            // Update the user list with the updated user data
+            const updatedUsers = value.users.map(user => {
+                if (user.id === updatedUser.id) {
+                    return updatedUser;
+                }
+                return user;
+            });
+            value.setMyUsers(updatedUsers);
         } catch (error) {
-            console.error("Error editing user:", error);
+            console.error("Error updating user:", error);
             // Handle error, show alert, etc.
+            setAlertMessage("Error updating user. Please try again.");
         }
     };
+    
     
 
     

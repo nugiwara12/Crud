@@ -14,7 +14,7 @@ const fetcher = async () => {
     return data
 }
 
-function UsersTable({ users, handleDelete, setEditUser }) {
+function UsersTable({ user, handleDelete, setEditUser, paginatedPosts }) {
 
     // Ensure that data is always fetched
     const { data } = useSWR(
@@ -41,7 +41,7 @@ function UsersTable({ users, handleDelete, setEditUser }) {
         const userGenerator = () => {
             return (
                 <>
-                    <User setEditUser = {setEditUser} handleDelete = {handleDelete} />
+                    <User key={user.id} checkedAll = {checkedAll} setCheckedAll = {setCheckedAll} user = {user} setEditUser = {setEditUser} handleDelete = {handleDelete} />
                 </>
             )
         }
